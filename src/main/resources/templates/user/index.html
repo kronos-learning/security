@@ -1,0 +1,26 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:insert="common/header :: header">
+	<meta charset="UTF-8">
+</head>
+<body>
+	<nav th:insert="common/navbar :: navbar"></nav>
+	<div class="container">
+		<h2>ユーザー一覧</h2>
+		<table class="table">
+			<tr>
+				<th>ID</th>
+				<th>ログインID</th>
+				<th>権限</th>
+			</tr>
+			<tr th:each="user : ${users}">
+				<td th:utext=${user.id}></td>
+				<td>
+					<a th:if="${session.user.isAdministrator()}" th:href="@{'/users/' + ${user.id}}" th:utext=${user.loginId}></a>
+					<span th:unless="${session.user.isAdministrator()}" th:utext=${user.loginId}></span>
+				</td>
+				<td th:utext=${user.adminName}></td>
+			</tr>
+		</table>
+	</div>
+</body>
+</html>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.security.mapper.UserMapper">
+	<select id="findAll" resultType="com.example.security.entity.User">
+		select id, login_id, admin from users order by id
+	</select>
+	<select id="findById" resultType="com.example.security.entity.User">
+		select id, login_id, admin from users where id = #{id}
+	</select>
+	<select id="findByLoginIdAndPassword" resultType="com.example.security.entity.User">
+		select id, login_id, admin from users where login_id = #{loginId} and password = #{password}
+	</select>
+	<update id="update">
+    	update users set login_id = #{loginId}, admin = #{admin} where id = #{id}
+   </update>
+</mapper>

@@ -1,0 +1,24 @@
+version: "3"
+services:
+    db:
+        image: mysql:8.0.26
+        container_name: security_db
+        ports:
+        - '13306:3306'
+        volumes:
+        - ./initdb.d:/docker-entrypoint-initdb.d
+        environment:
+          MYSQL_ROOT_PASSWORD: root
+          MYSQL_DATABASE: sample
+          MYSQL_USER: sample
+          MYSQL_PASSWORD: secret
+          TZ: 'Asia/Tokyo'
+        command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    app:
+        image: openjdk:11
+        container_name: security_app
+        volumes:
+        - .:/app
+        command: java -jar /app/build/libs/security-0.0.1-SNAPSHOT.jar
+        ports:
+        - 8080:8080

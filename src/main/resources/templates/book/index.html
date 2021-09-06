@@ -1,0 +1,26 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:insert="common/header :: header">
+	<meta charset="UTF-8">
+</head>
+<body>
+	<nav th:insert="common/navbar :: navbar"></nav>
+	<div class="container">
+		<h2>書籍一覧</h2>
+		<table class="table">
+			<tr>
+				<th>ID</th>
+				<th>書籍名</th>
+				<th>価格</th>
+			</tr>
+			<tr th:each="book : ${books}">
+				<td th:utext=${book.id}></td>
+				<td>
+					<a th:if="${session.user.isAdministrator()}" th:href="@{'/books/' + ${book.id}}" th:utext=${book.name}></a>
+					<span th:unless="${session.user.isAdministrator()}" th:utext=${book.name}></span>
+				</td>				
+				<td th:utext=${book.price}></td>
+			</tr>
+		</table>
+	</div>
+</body>
+</html>

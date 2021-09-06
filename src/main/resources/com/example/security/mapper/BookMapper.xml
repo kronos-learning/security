@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.security.mapper.BookMapper">
+	<select id="findAll" resultType="com.example.security.entity.Book">
+		select id, name, price from books order by id
+	</select>
+	<select id="findById" resultType="com.example.security.entity.Book">
+		select id, name, price from books where id = #{id}
+	</select>	
+	<update id="update">
+		update books set name = #{name}, price=#{price} where id = #{id}
+    </update>
+</mapper>

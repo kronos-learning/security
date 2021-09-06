@@ -1,0 +1,41 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:insert="common/header :: header">
+	<meta charset="UTF-8">
+</head>
+<body>
+	<nav th:insert="common/navbar :: navbar"></nav>
+	<div class="container">
+		<div class="row">
+			<div class="col">
+				こんにちは、<span th:text="${session.user.loginId}"></span> さん
+			</div>
+		</div>
+		<div class="row">
+			<div class="col">
+				<a href="user">ユーザー情報変更</a>
+			</div>
+		</div>
+		<form class="form-group" action="comment" method="post" th:object="${commentForm}">
+			<label>コメント</label>
+			<div class="row">
+				<div class="col-5">
+					<input class="form-control" type="text" th:field="*{comment}" /> 
+				</div>
+				<div class="col-2">
+					<input class="btn btn-primary" type="submit" />
+				</div>
+			</div>
+		</form>
+		<hr/>
+		<div class="row" th:each="comment : ${comments}" style="margin-bottom:1em">
+			<div class="col-12" th:text="${comment.comment}"></div>
+			<div class="col-12">
+				<span th:text="${comment.loginId + ' : ' + comment.createdAt}" ></span>
+				<form action="comment" th:method="delete" style="display:inline">
+					<input class="btn btn-sm btn-outline-danger" type="submit" value="削除"/>
+				</form>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

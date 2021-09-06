@@ -1,0 +1,22 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:insert="common/header :: header">
+	<meta charset="UTF-8">
+</head>
+<body>
+	<nav th:insert="common/navbar :: navbar"></nav>
+	<div class="container">
+		<h2>ユーザー情報</h2>
+		<form th:action="@{'/users/' + ${id}}" th:method="put" th:object="${userForm}">
+			<div class="form-group">
+				<label for="name">ログインID</label>
+				<input class="form-control" type="text" th:field="*{loginId}" />
+			</div>
+			<div class="form-group">
+				<input type="radio" name="admin" th:field="*{admin}" value="0" />権限なし
+				<input type="radio" name="admin" th:field="*{admin}" value="1" />管理者
+			</div>
+			<input class="btn btn-primary" type="submit" />
+		</form>
+	</div>
+</body>
+</html>
