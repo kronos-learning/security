@@ -17,8 +17,9 @@ services:
     app:
         image: openjdk:11
         container_name: security_app
-        volumes:
-        - .:/app
+        build:
+          context: .
+          dockerfile: Dockerfile
         command: java -jar /app/build/libs/security-0.0.1-SNAPSHOT.jar
         ports:
         - 8080:8080
