@@ -8,6 +8,7 @@
 		<h1>ログイン</h1>
 		<div class="alert alert-danger" th:if="${errorMessage != null}" th:text="${errorMessage}"></div>
 		<form class="login-form" action="login" method="post" th:object="${loginForm}">
+			<!-- <input type="hidden" th:field="*{csrf}"> -->
 			<div class="form-group">
 				<label for="login-id">ID</label>
 				<input class="form-control" type="text" th:field="*{loginId}" />

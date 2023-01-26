@@ -1,10 +1,13 @@
 package com.example.security.controller;
 
 import javax.servlet.http.HttpSession;
+import javax.servlet.http.HttpServletResponse;
 
 import com.example.security.entity.User;
 import com.example.security.form.LoginForm;
 import com.example.security.service.UserService;
+import com.example.security.util.Csrf;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -42,8 +45,19 @@ public class LoginController {
 	 * @return ログインテンプレート
 	 */
 	@GetMapping
-	public String show(@ModelAttribute("loginForm")LoginForm loginForm) {
+	public String show(@ModelAttribute("loginForm")LoginForm loginForm, HttpServletResponse response) {
+
+		// CSRFトークンの設定
+		// String csrf = Csrf.createToken();
+		// session.setAttribute("csrf", csrf);
+		// loginForm.setCsrf(csrf);
 		
+		// すべてのページで埋め込みを不許可
+		// response.addHeader("X-FRAME-OPTIONS", "DENY");
+
+		// Content－Typeから判断する
+		// response.addHeader("X-CONTENT-TYPE-OPTIONS", "NOSNIFF");
+
 		// ログインページの表示
 		return "login";
 	}
@@ -60,6 +74,13 @@ public class LoginController {
 						RedirectAttributes redirectAttributes,
 						Model model) {
 		
+		// CSRFチェック
+    // String csrf = (String)session.getAttribute("csrf");
+    // session.removeAttribute("csrf");
+    // if (csrf == null || !csrf.equals(loginForm.getCsrf())) {
+    //   return "redirect:logout";
+    // }
+
 		// ログイン情報の取得
 		String loginId = loginForm.getLoginId();
 		String password = loginForm.getPassword();
@@ -79,5 +100,4 @@ public class LoginController {
 		// 書籍一覧ページの表示
 		return "redirect:books";
 	}
-
 }
